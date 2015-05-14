@@ -1,0 +1,38 @@
+;enable font-lock
+(when(fboundp 'global-font-lock-mode)(global-font-lock-mode t))
+(setq font-lock-maximum-decoration t)
+
+;use UTF-8
+(coding-system-put 'utf-8 'category 'utf-8)
+(set-language-info "Japanese" 'coding-priority(cons 'utf-8(get-language-info "Japanese" 'coding-priority)))
+(set-language-environment "Japanese")
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+
+; highlight selected region
+(transient-mark-mode t)
+
+;use bash
+(setq explicit-shell-file-name "/bin/bash") 
+(setq shell-file-name "/bin/bash")
+(setq shell-command-switch "-c")
+
+;hide inputting password
+(add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
+
+;handle escape sequences
+(autoload 'ansi-color-for-comint-mode-on "ansi-color"
+          "Set `ansi-color-for-comint-mode' to t." t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;use UTF-8
+(add-hook 'shell-mode-hook(lambda()(set-buffer-process-coding-system 'utf-8 'utf-8)))
+
+;adjust window size
+(setq default-frame-alist (append (list
+	'(width . 80)
+	'(height . 50))
+	default-frame-alist))

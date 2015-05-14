@@ -1,0 +1,209 @@
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-loaddefs.el
+Generating autoloads for cedet-autogen.el...
+Generating autoloads for cedet-autogen.el...done
+Generating autoloads for cedet-compat.el...
+Generating autoloads for cedet-compat.el...done
+Generating autoloads for cedet-edebug.el...
+Generating autoloads for cedet-edebug.el...done
+Generating autoloads for cedet-files.el...
+Generating autoloads for cedet-files.el...done
+Generating autoloads for cedet-load.el...
+Generating autoloads for cedet-load.el...done
+Generating autoloads for cedet.el...
+Generating autoloads for cedet.el...done
+Generating autoloads for ezimage.el...
+Generating autoloads for ezimage.el...done
+Generating autoloads for fame.el...
+Generating autoloads for fame.el...done
+Generating autoloads for inversion.el...
+Generating autoloads for inversion.el...done
+Generating autoloads for mode-local.el...
+Generating autoloads for mode-local.el...done
+Generating autoloads for pprint.el...
+Generating autoloads for pprint.el...done
+Generating autoloads for sformat.el...
+Generating autoloads for sformat.el...done
+Generating autoloads for working.el...
+Generating autoloads for working.el...done
+Saving file /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-loaddefs.el
+(No changes need to be saved)
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-load.elc
+
+In end of data:
+cedet.el:195:1:Warning: the function `inversion-add-to-load-path' might not be
+    defined at runtime.
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet.elc
+
+In toplevel form:
+cedet-autogen.el:62:9:Warning: `find-file-hooks' is an obsolete variable (as
+    of Emacs 22.1); use `find-file-hook' instead.
+
+In cedet-update-autoloads:
+cedet-autogen.el:200:11:Warning: `write-contents-hooks' is an obsolete
+    variable (as of Emacs 22.1); use `write-contents-functions' instead.
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-autogen.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-compat.elc
+
+In ezimage-image-association-dump:
+ezimage.el:311:4:Warning: `save-excursion' defeated by `set-buffer'
+
+In ezimage-image-dump:
+ezimage.el:335:4:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+ezimage.el:368:1:Warning: the following functions are not known to be defined:
+    locate-data-directory, ezimage-find-image-on-load-path
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/ezimage.elc
+
+In inversion-upgrade-package:
+inversion.el:556:6:Warning: `mapcar' called for effect; use `mapc' or `dolist'
+    instead
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/inversion.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/pprint.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/sformat.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/fame.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/working.elc
+
+In toplevel form:
+cedet-edebug.el:114:25:Warning: reference to free variable `edebug-mode-map'
+cedet-edebug.el:124:25:Warning: reference to free variable `debugger-mode-map'
+
+In end of data:
+cedet-edebug.el:130:1:Warning: the function
+    `cedet-edebug-prin1-to-string-inner' is not known to be defined.
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-edebug.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/mode-local.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/common/cedet-files.elc
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/ede/ede-loaddefs.el
+Generating autoloads for autoconf-compat.el...
+Generating autoloads for autoconf-compat.el...done
+Generating autoloads for autoconf-edit.el...
+Generating autoloads for autoconf-edit.el...done
+Generating autoloads for ede-dired.el...
+Generating autoloads for ede-dired.el...done
+Generating autoloads for ede-load.el...
+Generating autoloads for ede-load.el...done
+Generating autoloads for ede-pconf.el...
+Generating autoloads for ede-pconf.el...done
+Generating autoloads for ede-pmake.el...
+Generating autoloads for ede-pmake.el...done
+Generating autoloads for ede-proj-archive.el...
+Generating autoloads for ede-proj-archive.el...done
+Generating autoloads for ede-proj-aux.el...
+Generating autoloads for ede-proj-aux.el...done
+Generating autoloads for ede-proj-comp.el...
+Generating autoloads for ede-proj-comp.el...done
+Generating autoloads for ede-proj-elisp.el...
+Generating autoloads for ede-proj-elisp.el...done
+Generating autoloads for ede-proj-info.el...
+Generating autoloads for ede-proj-info.el...done
+Generating autoloads for ede-proj-misc.el...
+Generating autoloads for ede-proj-misc.el...done
+Generating autoloads for ede-proj-obj.el...
+Generating autoloads for ede-proj-obj.el...done
+Generating autoloads for ede-proj-prog.el...
+Generating autoloads for ede-proj-prog.el...done
+Generating autoloads for ede-proj-scheme.el...
+Generating autoloads for ede-proj-scheme.el...done
+Generating autoloads for ede-proj-shared.el...
+Generating autoloads for ede-proj-shared.el...done
+Generating autoloads for ede-proj-skel.el...
+Generating autoloads for ede-proj-skel.el...done
+Generating autoloads for ede-proj.el...
+Generating autoloads for ede-proj.el...done
+Generating autoloads for ede-simple.el...
+Generating autoloads for ede-simple.el...done
+Generating autoloads for ede-source.el...
+Generating autoloads for ede-source.el...done
+Generating autoloads for ede-speedbar.el...
+Generating autoloads for ede-speedbar.el...done
+Generating autoloads for ede-system.el...
+Generating autoloads for ede-system.el...done
+Generating autoloads for ede-util.el...
+Generating autoloads for ede-util.el...done
+Generating autoloads for ede.el...
+Generating autoloads for ede.el...done
+Generating autoloads for project-am.el...
+Generating autoloads for project-am.el...done
+Saving file /home/imamura/.emacs.d/cedet-1.0pre4/ede/ede-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/ede/ede-loaddefs.el
+(No changes need to be saved)
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/ede/ede-load.elc
+Loading `dframe': old-style backquotes detected!
+Loading `ede.el': old-style backquotes detected!
+
+In toplevel form:
+project-am.el:125:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede.el:52:1:Warning: !! The file uses old-style backquotes !!
+This functionality has been obsolete for more than 10 years already
+and will be removed soon.  See (elisp)Backquote in the manual.
+ede.el:652:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-pmake.el:52:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-pconf.el:32:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj.el:296:1:Error: Symbol's value as variable is void: outbuffer
+
+In ede-dired-add-to-target:
+ede-dired.el:94:47:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/ede/ede-dired.elc
+
+In toplevel form:
+ede-proj-elisp.el:84:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-misc.el:66:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-obj.el:164:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-prog.el:58:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-archive.el:46:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-shared.el:96:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-info.el:75:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-scheme.el:44:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-aux.el:42:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-proj-comp.el:175:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-source.el:76:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-util.el:50:1:Error: Symbol's value as variable is void: outbuffer
+
+In end of data:
+ede-system.el:139:1:Warning: the function `vc-directory' is not known to be
+    defined.
+Wrote /home/imamura/.emacs.d/cedet-1.0pre4/ede/ede-system.elc
+
+In toplevel form:
+ede-speedbar.el:192:1:Error: Symbol's value as variable is void: outbuffer
+
+In toplevel form:
+ede-simple.el:103:1:Error: Symbol's value as variable is void: outbuffer
+make[1]: *** [ede] エラー 1
+make: *** [ede] エラー 2

@@ -1,0 +1,231 @@
+ (add-to-list 'load-path "~/.emacs.d/")
+ (add-to-list 'load-path "~/.emacs.d/elisp")
+
+;;
+;; YaTeX
+;;
+(add-to-list 'load-path "~/.emacs.d/site-lisp/yatex")
+(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+(setq auto-mode-alist
+      (append '(("\\.tex$" . yatex-mode)
+                ("\\.ltx$" . yatex-mode)
+                ("\\.cls$" . yatex-mode)
+                ("\\.sty$" . yatex-mode)
+                ("\\.clo$" . yatex-mode)
+                ("\\.bbl$" . yatex-mode)) auto-mode-alist))
+(setq YaTeX-inhibit-prefix-letter t)
+(setq YaTeX-kanji-code nil)
+(setq YaTeX-use-LaTeX2e t)
+(setq YaTeX-use-AMS-LaTeX t)
+(setq YaTeX-dvipdf-command "dvipdfmx")
+(setq YaTeX-dvi2-command-ext-alist
+      '(("[agx]dvi\\|dviout" . ".dvi")
+        ("gv" . ".ps")
+        ("texworks\\|SumatraPDF\\|evince\\|okular\\|qpdfview\\|pdfviewer\\|zathura\\|mupdf\\|xpdf\\|acroread\\|pdfopen" . ".pdf")))
+;(setq tex-command "latexmk")
+;(setq tex-command "latexmk -e '$latex=q/platex -synctex=1/' -e '$bibtex=q/pbibtex/' -e '$makeindex=q/mendex/' -e '$dvipdf=q/dvipdfmx %O -o %D %S/' -norc -gg -pdfdvi")
+;(setq tex-command "latexmk -e '$latex=q/platex -synctex=1/' -e '$bibtex=q/pbibtex/' -e '$makeindex=q/mendex/' -e '$dvips=q/dvips %O -z -f %S | convbkmk -g > %D/' -e '$ps2pdf=q/ps2pdf %O %S %D/' -norc -gg -pdfps")
+;(setq tex-command "latexmk -e '$latex=q/uplatex -synctex=1/' -e '$bibtex=q/upbibtex/' -e '$makeindex=q/mendex/' -e '$dvipdf=q/dvipdfmx %O -o %D %S/' -norc -gg -pdfdvi")
+;(setq tex-command "latexmk -e '$latex=q/uplatex -synctex=1/' -e '$bibtex=q/upbibtex/' -e '$makeindex=q/mendex/' -e '$dvips=q/dvips %O -z -f %S | convbkmk -u > %D/' -e '$ps2pdf=q/ps2pdf %O %S %D/' -norc -gg -pdfps")
+;(setq tex-command "latexmk -e '$pdflatex=q/pdflatex -synctex=1/' -e '$bibtex=q/bibtex/' -e '$makeindex=q/makeindex/' -norc -gg -pdf")
+;(setq tex-command "latexmk -e '$pdflatex=q/lualatex -synctex=1/' -e '$bibtex=q/bibtexu/' -e '$makeindex=q/texindy/' -norc -gg -pdf")
+;(setq tex-command "latexmk -e '$pdflatex=q/xelatex -synctex=1/' -e '$bibtex=q/bibtexu/' -e '$makeindex=q/texindy/' -norc -gg -xelatex")
+(setq tex-command "platex -synctex=1")
+;(setq tex-command "pdfplatex")
+;(setq tex-command "pdfplatex2")
+;(setq tex-command "uplatex -synctex=1")
+;(setq tex-command "pdfuplatex")
+;(setq tex-command "pdfuplatex2")
+;(setq tex-command "pdflatex -synctex=1")
+;(setq tex-command "lualatex -synctex=1")
+;(setq tex-command "xelatex -synctex=1")
+(setq bibtex-command (cond ((string-match "uplatex" tex-command) "upbibtex")
+                           ((string-match "platex" tex-command) "pbibtex")
+                           ((string-match "lualatex\\|xelatex" tex-command) "bibtexu")
+                           (t "bibtex")))
+(setq makeindex-command (cond ((string-match "uplatex" tex-command) "mendex")
+                              ((string-match "platex" tex-command) "mendex")
+                              ((string-match "lualatex\\|xelatex" tex-command) "texindy")
+                              (t "makeindex")))
+(setq dvi2-command (cond ((string-match "pdf\\|lua\\|xe" tex-command) "evince")
+                         (t "pxdvi -watchfile 1")))
+(setq dviprint-command-format (cond ((string-match "pdf\\|lua\\|xe" tex-command) "acroread %s")
+                                    (t "acroread `echo %s | sed -e \"s/\\.[^.]*$/\\.pdf/\"`")))
+
+(defun sumatrapdf-forward-search ()
+  (interactive)
+  (let* ((ctf (buffer-name))
+         (mtf)
+         (pf)
+         (ln (format "%d" (line-number-at-pos)))
+         (cmd "wine \"$HOME/.wine/drive_c/Program Files/SumatraPDF/SumatraPDF.exe\"")
+         (args))
+    (if (YaTeX-main-file-p)
+        (setq mtf (buffer-name))
+      (progn
+        (if (equal YaTeX-parent-file nil)
+            (save-excursion
+              (YaTeX-visit-main t)))
+        (setq mtf YaTeX-parent-file)))
+    (setq pf (concat (car (split-string mtf "\\.")) ".pdf"))
+    (setq args (concat "-reuse-instance \"" pf "\" -forward-search \"" ctf "\" " ln))
+    (message (concat cmd " " args))
+    (process-kill-without-query
+     (start-process-shell-command "sumatrapdf" nil cmd args))))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c s") 'sumatrapdf-forward-search)))
+
+(defun evince-forward-search ()
+  (interactive)
+  (let* ((ctf (buffer-name))
+         (mtf)
+         (pf)
+         (ln (format "%d" (line-number-at-pos)))
+         (cmd "fwdevince")
+         (args))
+    (if (YaTeX-main-file-p)
+        (setq mtf (buffer-name))
+      (progn
+        (if (equal YaTeX-parent-file nil)
+            (save-excursion
+              (YaTeX-visit-main t)))
+        (setq mtf YaTeX-parent-file)))
+    (setq pf (concat (car (split-string mtf "\\.")) ".pdf"))
+    (setq args (concat "\"" pf "\" " ln " \"" ctf "\""))
+    (message (concat cmd " " args))
+    (process-kill-without-query
+     (start-process-shell-command "fwdevince" nil cmd args))))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c e") 'evince-forward-search)))
+
+(require 'dbus)
+
+(defun un-urlify (fname-or-url)
+  "A trivial function that replaces a prefix of file:/// with just /."
+  (if (string= (substring fname-or-url 0 8) "file:///")
+      (substring fname-or-url 7)
+    fname-or-url))
+
+(defun evince-inverse-search (file linecol &rest ignored)
+  (let* ((fname (un-urlify file))
+         (buf (find-file fname))
+         (line (car linecol))
+         (col (cadr linecol)))
+    (if (null buf)
+        (message "[Synctex]: %s is not opened..." fname)
+      (switch-to-buffer buf)
+      (goto-line (car linecol))
+      (unless (= col -1)
+        (move-to-column col)))))
+
+(dbus-register-signal
+ :session nil "/org/gnome/evince/Window/0"
+ "org.gnome.evince.Window" "SyncSource"
+ 'evince-inverse-search)
+
+(defun okular-forward-search ()
+  (interactive)
+  (let* ((ctf (buffer-file-name))
+         (mtf)
+         (pf)
+         (ln (format "%d" (line-number-at-pos)))
+         (cmd "okular")
+         (args))
+    (if (YaTeX-main-file-p)
+        (setq mtf (buffer-name))
+      (progn
+        (if (equal YaTeX-parent-file nil)
+            (save-excursion
+              (YaTeX-visit-main t)))
+        (setq mtf YaTeX-parent-file)))
+    (setq pf (concat (car (split-string mtf "\\.")) ".pdf"))
+    (setq args (concat "--unique \"file:" pf "#src:" ln " " ctf "\""))
+    (message (concat cmd " " args))
+    (process-kill-without-query
+     (start-process-shell-command "okular" nil cmd args))))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c o") 'okular-forward-search)))
+
+(defun qpdfview-forward-search ()
+  (interactive)
+  (let* ((ctf (buffer-name))
+         (mtf)
+         (pf)
+         (ln (format "%d" (line-number-at-pos)))
+         (cmd "qpdfview")
+         (args))
+    (if (YaTeX-main-file-p)
+        (setq mtf (buffer-name))
+      (progn
+        (if (equal YaTeX-parent-file nil)
+            (save-excursion
+              (YaTeX-visit-main t)))
+        (setq mtf YaTeX-parent-file)))
+    (setq pf (concat (car (split-string mtf "\\.")) ".pdf"))
+    (setq args (concat "--unique \"" pf "#src:" ctf ":" ln ":0\""))
+    (message (concat cmd " " args))
+    (process-kill-without-query
+     (start-process-shell-command "qpdfview" nil cmd args))))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c q") 'qpdfview-forward-search)))
+
+(defun pdfviewer-forward-search ()
+  (interactive)
+  (let* ((ctf (buffer-name))
+         (mtf)
+         (pf)
+         (ln (format "%d" (line-number-at-pos)))
+         (cmd "pdfviewer")
+         (args))
+    (if (YaTeX-main-file-p)
+        (setq mtf (buffer-name))
+      (progn
+        (if (equal YaTeX-parent-file nil)
+            (save-excursion
+              (YaTeX-visit-main t)))
+        (setq mtf YaTeX-parent-file)))
+    (setq pf (concat (car (split-string mtf "\\.")) ".pdf"))
+    (setq args (concat "\"file:" pf "#src:" ln " " ctf "\""))
+    (message (concat cmd " " args))
+    (process-kill-without-query
+     (start-process-shell-command "pdfviewer" nil cmd args))))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c p") 'pdfviewer-forward-search)))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (auto-fill-mode -1)))
+
+;;
+;; RefTeX with YaTeX
+;;
+;(add-hook 'yatex-mode-hook 'turn-on-reftex)
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (reftex-mode 1)
+             (define-key reftex-mode-map (concat YaTeX-prefix ">") 'YaTeX-comment-region)
+             (define-key reftex-mode-map (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
+
+
+
+ ;;;自動バイトコンパイル
+ (require 'auto-async-byte-compile)
+ (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
+ (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+
+;;;色変更のやつ
+(require 'color-theme)
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-wheat)))
